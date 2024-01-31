@@ -14,7 +14,7 @@ const saltRound=10;
 let arr=[]
 
 routes.post('/register',(req,res)=>{
-    logindata=req.body
+    let logindata=req.body
     console.log(logindata)
     logindata.password=bcrypt.hashSync(logindata.password,saltRound)
     const acc=arr.find((item)=>item.email===logindata.email)
@@ -30,7 +30,7 @@ res.send({msg:"user Registered Successfully",token:token})
 })
 
 routes.post('/login',(req,res)=>{
- logindata=req.body
+ let logindata=req.body
 const acc=arr.find((item)=>item.email===logindata.email)
 if(acc){
     const login=bcrypt.compareSync(logindata.password,acc.password)
