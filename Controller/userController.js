@@ -34,6 +34,10 @@ catch(error){
 }
 
 
+
+
+  
+
 const login = async (req,res)=>{
     const logindetails=req.body;
     try{    
@@ -72,4 +76,30 @@ catch(error){
 
 
 
-   module.exports ={register,login}
+
+const auth = async (req, res) => {
+    const user = req.user;
+    console.log(user);
+    if (user && user.useremail) {
+        try {
+            const userinfo = await reg.findOne({ email: user.useremail });
+            if (userinfo) {
+                res.send({ msg: "User Authorized", userdata: userinfo })
+            }
+            else {
+                res.status(404).send("User not found");
+            }
+        }
+        catch (err) {
+            console.log("Error fetching user detail from db:", err);
+        }
+    }
+   console.log("user authorized")
+   
+}
+
+
+
+//    module.exports ={register,login,auth}
+
+module.exports ={register,login,auth}
