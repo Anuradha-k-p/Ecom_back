@@ -13,3 +13,25 @@ const Connection=async ()=>{
     }
 }
 module.exports={Connection}
+
+// const mongoose= require("mongoose")
+
+// module.exports = ()=>{
+//     const connectionParams ={
+//         useNewUrlParser:true,
+//         useUnifiedTopology:true,
+//     };
+
+//     try{
+//         console.log("MongoDB connection string:", process.env.DB);
+//                mongoose.connect(process.env.DB,connectionParams)
+
+//                 console.log("Connected Successfully");
+                
+        
+//             }
+//             catch(err){
+//                 console.log("something wrong in connection process:",err)
+//             }
+
+// }

@@ -1,8 +1,7 @@
 const jwt=require('jsonwebtoken')
-// const dotenv=require('dotenv')
-// dotenv.config();
+
 const secretkey='Sp28'
-// const cors=require("cors")
+
 const auther=(req,res,next)=>{
     const BToken=req.headers['authorization'];
     console.log("this is bearer", BToken);
