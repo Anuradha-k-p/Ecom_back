@@ -10,7 +10,7 @@ routes.get('/ecom',data);
 // const route= express.Router()
 const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken');
-const { register, login, payment} = require('./Controller/userController');
+const { register, login} = require('./Controller/userController');
 const secretkey="Sp28"
 const saltRound=10;
 //const auth=require('./Middleware')
@@ -20,7 +20,7 @@ routes.post('/register',register)
 
 routes.post('/login',login)
 
-routes.post('/payment',payment)
+// routes.post('/payment',payment)
 
 
 
