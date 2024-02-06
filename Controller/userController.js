@@ -4,6 +4,8 @@ const { reg } = require('../model/userModel');
 const secretkey="Sp28"
 const saltRound=10;
 
+const stripe=require("stripe")("sk_test_51OgWF8SF5J9zEbVfIkLW9J4oQr5PruTtexJAcFWvAHXebAPEfpznU0JtgbzENSFKaBjH2ixX7H8pAMz0JqQJLybR00QvraBvQo")
+
 
 
 const register = async (req,res)=>{
@@ -99,7 +101,42 @@ const auth = async (req, res) => {
 }
 
 
+const payment = async (req, res) => {
+    const { products } = req.body;
+    console.log(products);
+  
+    const lineItems = products.map((prod) => ({
+      
+      price_data: {
+        currency: "inr",
+        product_data: {
+          name: prod.model,
+        },
+        unit_amount: prod.price * 100,
+      },
+      quantity: prod.quantity
+    }));
+  
+    try {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: lineItems,
+        mode: "payment",
+        success_url: "http://localhost:3000/",
+        cancel_url: "http://localhost:3000/cart",
+      });
+  
+      res.json({ id: session.id });
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
+
+
+
 
 //    module.exports ={register,login,auth}
 
-module.exports ={register,login,auth}
+module.exports ={register,login,auth,payment}
